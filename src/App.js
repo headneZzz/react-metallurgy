@@ -3,14 +3,15 @@ import Login from "./pages/Login";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Foundries from "./pages/Foundries";
 import Furnaces from "./pages/Furnaces";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/main" component={Foundries}/>
-                <Route path="/main/:number" component={Furnaces}/>
-                <Route exact path="/" component={Login}/>
+                <PrivateRoute exact path="/" component={Foundries}/>
+                <PrivateRoute path="/furnaces/:id" component={Furnaces}/>
+                <Route exact path="/login" component={Login}/>
             </Switch>
         </BrowserRouter>
     );

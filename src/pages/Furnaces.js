@@ -1,14 +1,13 @@
 import {Card, Col, Layout, Menu, Row} from "antd";
 import React from "react";
 import GaugeChart from 'react-gauge-chart'
-import {Gauge} from 'ant-design-pro/lib/Charts';
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import WaterWave from "ant-design-pro/lib/Charts/WaterWave";
 import {ChartCard, MiniArea, MiniProgress} from 'ant-design-pro/lib/Charts';
 import moment from 'moment';
 
 
-export default function Furnaces() {
+export default function Furnaces({match}) {
     const {SubMenu} = Menu;
     const {Header, Content, Sider} = Layout;
 
@@ -26,6 +25,7 @@ export default function Furnaces() {
     return (
         <Layout className="wrapper">
             <Header className="header">
+                <div className="logo">Цех {match.params.id}</div>
                 <Menu theme="dark" mode="horizontal">
                 </Menu>
             </Header>
@@ -50,19 +50,25 @@ export default function Furnaces() {
                     <div className="site-card-wrapper">
                         <Row gutter={16}>
                             <Col span={4}>
-                                <Card title="Температура воды" bordered={false}>
-                                    <GaugeChart percent={0.5} textColor={"#000000"} id="gauge-chart1"/>
+                                <Card title="Скорость разливки" bordered={false}>
+                                    <GaugeChart id="gauge-chart2" percent={0.5} textColor={"#000000"}
+                                                needleColor={"#cdcdcd"} nrOfLevels={20}
+                                                formatTextValue={value => 2 + ' м/мин'}/>
                                 </Card>
                             </Col>
+
                             <Col span={4}>
-                                <Card bordered={false}>
-                                    <Gauge title="Кристаллизатор" height={164} percent={87}/>
+                                <Card title="Расход воды на кр-р" bordered={false}>
+                                    <GaugeChart id="gauge-chart1" percent={0.5} textColor={"#000000"}
+                                                needleColor={"#cdcdcd"} nrOfLevels={20}
+                                                formatTextValue={value => 2155 + ' л/м'}/>
                                 </Card>
                             </Col>
+
                             <Col span={4}>
-                                <Card bordered={false}>
+                                <Card title="Кол-во воды" bordered={false}>
                                     <div style={{textAlign: 'center'}}>
-                                        <WaterWave height={161} title="Кол-во воды" percent={34}/>
+                                        <WaterWave percent={34}/>
                                     </div>
                                 </Card>
                             </Col>

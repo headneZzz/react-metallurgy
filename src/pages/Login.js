@@ -1,11 +1,14 @@
 import React from "react";
 import {Form, Input, Button} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
+import {setUserSession} from "../utils/sessionUtils";
 
 export default function Login(props) {
 
     const handleSubmit = () => {
-        props.history.push('/main')
+        const user = {"name": "temp"};
+        setUserSession(user);
+        props.history.push('/')
     };
 
     return (

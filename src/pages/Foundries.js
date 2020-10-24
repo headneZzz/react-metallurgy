@@ -3,6 +3,7 @@ import React from "react";
 
 export default function Foundries(props) {
     const {Content, Footer, Header} = Layout;
+    const handleClick = (event) => props.history.push("/furnaces/" + event.currentTarget.id);
     return (
         <Layout className="wrapper">
             <Header className="header">
@@ -15,7 +16,7 @@ export default function Foundries(props) {
                         <Row gutter={16}>
                             <Col span={4}>
                                 <Card id={1} headStyle={{color: "red"}} title="Цех 1" bordered={false} hoverable
-                                      onClick={(event) => props.history.push("/main/" + event.currentTarget.id)}>
+                                      onClick={handleClick}>
                                     Гильз с вероятностью отказа: 0/11
                                 </Card>
                             </Col>
