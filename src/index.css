@@ -11,7 +11,13 @@ body {
     min-height: 100%;
 }
 
+.row {
+    margin-top: 24px
+}
 .logo {
+    width: 120px;
+    height: 31px;
+    float: left;
     color: white;
     font-size: 22px;
 }

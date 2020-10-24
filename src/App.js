@@ -1,15 +1,14 @@
 import React from 'react';
 import Login from "./pages/Login";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Foundries from "./pages/Foundries";
-import Furnaces from "./pages/Furnaces";
 import PrivateRoute from "./utils/PrivateRoute";
+import Furnaces from "./pages/Furnaces/";
 
 function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <PrivateRoute exact path="/" component={Foundries}/>
+                <PrivateRoute exact path="/furnaces" component={Furnaces}/>
                 <PrivateRoute path="/furnaces/:id" component={Furnaces}/>
                 <Route exact path="/login" component={Login}/>
             </Switch>

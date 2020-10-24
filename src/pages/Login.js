@@ -8,7 +8,7 @@ export default function Login(props) {
     const handleSubmit = () => {
         const user = {"name": "temp"};
         setUserSession(user);
-        props.history.push('/')
+        props.history.push('/furnaces')
     };
 
     return (
