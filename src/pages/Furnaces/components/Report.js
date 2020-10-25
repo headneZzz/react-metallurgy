@@ -1,4 +1,4 @@
-import {Button, Card, Col, Descriptions, Input, Layout, Modal, PageHeader, Row} from "antd";
+import {Button, Card, Col, Descriptions, Input, Layout, Modal, PageHeader, Popconfirm, Row} from "antd";
 import WaterWave from "ant-design-pro/lib/Charts/WaterWave";
 import {ChartCard, MiniArea, MiniProgress} from "ant-design-pro/lib/Charts";
 import React, {useState} from "react";
@@ -6,7 +6,6 @@ import GaugeChart from 'react-gauge-chart'
 import moment from 'moment';
 
 export default function Report(props) {
-    console.log(props.info);
     const {Content} = Layout;
     const visitData = [];
     const beginDay = new Date().getTime();
@@ -16,7 +15,11 @@ export default function Report(props) {
             y: Math.floor(Math.random() * 100) + 10,
         });
     }
-
+    let statusSign;
+    if (props.status === "OK") statusSign = 'https://img1.freepng.ru/20180319/opq/kisspng-computer-icons-clip-art-check-yes-ok-icon-5ab061dfcd38e3.7297168415215088318406.jpg';
+    else statusSign = 'https://svg-clipart.com/clipart/icon/2jh4XVR-not-ok-mark-clipart.png';
+    const percentDate = (parseInt(props.info.deltaDate)/17)*100;
+    const percentTenacity= (parseInt(props.info.tenacity)/17000)*100;
     const [visible, setVisible] = useState(false);
 
     const showModal = () => {
@@ -30,18 +33,26 @@ export default function Report(props) {
                     <div className="site-page-header-ghost-wrapper">
                         <PageHeader
                             ghost={false}
-                            avatar={{src: 'https://img1.freepng.ru/20180319/opq/kisspng-computer-icons-clip-art-check-yes-ok-icon-5ab061dfcd38e3.7297168415215088318406.jpg'}}
-                            title={"Гильза 30013875"}
-                            subTitle="Кристаллизатор 15"
+                            avatar={{src: statusSign}}
+                            title={"Гильза " + props.info.sleeveId}
+                            subTitle={"Кристаллизатор " + props.info.crystallizerId}
                             extra={[
-                                <Button key="3">Удалить</Button>,
+                                <Popconfirm
+                                    title="Вы уверены?"
+                                    onConfirm={()=>console.log(1)}
+                                    onCancel={()=>console.log(2)}
+                                    okText="Да"
+                                    cancelText="Нет"
+                                >
+                                    <Button key="3">Удалить</Button>
+                                </Popconfirm>,
                                 <Button key="1" type="primary">Изменить</Button>,
                             ]}
                         >
                             <Descriptions size="small" column={1}>
                                 <Descriptions.Item label="Добавлена">Иваном Ивановым</Descriptions.Item>
-                                <Descriptions.Item label="Дата ввода">19.05.2020</Descriptions.Item>
-                                <Descriptions.Item label="Заметка">смена сечения</Descriptions.Item>
+                                <Descriptions.Item label="Дата ввода">{props.info.entryDate}</Descriptions.Item>
+                                <Descriptions.Item label="Заметка">{props.info.comment}</Descriptions.Item>
                             </Descriptions>
                         </PageHeader>
                     </div>
@@ -109,10 +120,10 @@ export default function Report(props) {
                     <Col span={24}>
                         <ChartCard
                             title="Наработка гильзы"
-                            total="78%"
+                            total={props.info.tenacity+" т"}
                             contentHeight={46}
                         >
-                            <MiniProgress percent={78} strokeWidth={8} target={80}/>
+                            <MiniProgress percent={percentTenacity} strokeWidth={8} target={80}/>
                         </ChartCard>
                     </Col>
                 </Row>
@@ -121,10 +132,10 @@ export default function Report(props) {
                     <Col span={24}>
                         <ChartCard
                             title="Вероятность отказа"
-                            total="78%"
+                            total={percentDate+"%"}
                             contentHeight={46}
                         >
-                            <MiniProgress percent={78} strokeWidth={8} target={80}/>
+                            <MiniProgress percent={percentDate} strokeWidth={8} target={80}/>
                         </ChartCard>
                     </Col>
                 </Row>

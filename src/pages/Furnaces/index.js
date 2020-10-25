@@ -1,5 +1,5 @@
 import {Button, Input, Layout, Menu, Modal} from "antd";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Report from "./components/Report";
 import PlusCircleOutlined from "@ant-design/icons/lib/icons/PlusCircleOutlined";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
@@ -11,12 +11,17 @@ export default function Furnaces({match}) {
     const [newItemVisible, setNewItemVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [currentStream, setCurrentStream] = useState("1");
+    const [currentStatus, setCurrentStatus] = useState("OK");
     const [info, setInfo] = useState({});
 
-    const handleClickSider = (event) => {
-        const thisInfo = api.filter(v => v.installationDate >= "25.05.2020" && v.releaseDate <= "25.05.2020" && v.streamId === parseInt(currentStream));
+    useEffect(() => {
+        const thisInfo = api.filter(v => v.streamId === parseInt(currentStream))[0];
         setInfo(thisInfo);
+    },[currentStream]);
+
+    const handleClickSider = (event) => {
         setCurrentStream(event.key);
+        setCurrentStatus(event.keyPath[1])
     };
     const handleNewItemOk = () => {
         setTimeout(() => {
@@ -70,7 +75,7 @@ export default function Furnaces({match}) {
 
                     </Menu>
                 </Sider>
-                <Report info={info}/>
+                <Report info={info} status={currentStatus}/>
             </Layout>
         </Layout>
     )
