@@ -8,8 +8,7 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <PrivateRoute exact path="/furnaces" component={Furnaces}/>
-                <PrivateRoute path="/furnaces/:id" component={Furnaces}/>
+                <PrivateRoute exact path="/" component={Furnaces}/>
                 <Route exact path="/login" component={Login}/>
             </Switch>
         </BrowserRouter>

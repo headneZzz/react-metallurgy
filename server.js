@@ -6,7 +6,7 @@ const port = process.env.PORT || 8080;
 // здесь у нас происходит импорт пакетов и определяется порт нашего сервера
 
 const app = express();
-app.use(favicon(__dirname + '/build/favicon.png'));
+app.use(favicon(__dirname + '/build/favicon.ico'));
 
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
