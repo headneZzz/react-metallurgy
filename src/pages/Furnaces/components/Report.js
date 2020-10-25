@@ -18,7 +18,7 @@ export default function Report(props) {
     let statusSign;
     if (props.status === "OK") statusSign = 'https://img1.freepng.ru/20180319/opq/kisspng-computer-icons-clip-art-check-yes-ok-icon-5ab061dfcd38e3.7297168415215088318406.jpg';
     else statusSign = 'https://svg-clipart.com/clipart/icon/2jh4XVR-not-ok-mark-clipart.png';
-    const percentDate = (parseInt(props.info.deltaDate)/17)*100;
+    const percentDate = Math.round((parseInt(props.info.deltaDate)/17)*100);
     const percentTenacity= (parseInt(props.info.tenacity)/17000)*100;
     const [visible, setVisible] = useState(false);
 
